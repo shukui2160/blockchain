@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minute.application.manage.mapper.MentionRecordMapper">
+  <resultMap id="BaseResultMap" type="com.minute.application.manage.entry.MentionRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="deal_id" jdbcType="VARCHAR" property="dealId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="coin_token_id" jdbcType="BIGINT" property="coinTokenId" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="form_addr" jdbcType="VARCHAR" property="formAddr" />
+    <result column="to_addr" jdbcType="VARCHAR" property="toAddr" />
+    <result column="money_value" jdbcType="VARCHAR" property="moneyValue" />
+    <result column="ext" jdbcType="VARCHAR" property="ext" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, deal_id, user_id, coin_token_id, type, status, form_addr, to_addr, money_value, 
+    ext, note, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mention_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from mention_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.minute.application.manage.entry.MentionRecord">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mention_record (deal_id, user_id, coin_token_id, 
+      type, status, form_addr, to_addr, 
+      money_value, ext, note, 
+      create_time, update_time)
+    values (#{dealId,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{coinTokenId,jdbcType=BIGINT}, 
+      #{type,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{formAddr,jdbcType=VARCHAR}, #{toAddr,jdbcType=VARCHAR}, 
+      #{moneyValue,jdbcType=VARCHAR}, #{ext,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.minute.application.manage.entry.MentionRecord">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mention_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dealId != null">
+        deal_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="coinTokenId != null">
+        coin_token_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="formAddr != null">
+        form_addr,
+      </if>
+      <if test="toAddr != null">
+        to_addr,
+      </if>
+      <if test="moneyValue != null">
+        money_value,
+      </if>
+      <if test="ext != null">
+        ext,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dealId != null">
+        #{dealId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="coinTokenId != null">
+        #{coinTokenId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="formAddr != null">
+        #{formAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="toAddr != null">
+        #{toAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyValue != null">
+        #{moneyValue,jdbcType=VARCHAR},
+      </if>
+      <if test="ext != null">
+        #{ext,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.minute.application.manage.entry.MentionRecord">
+    update mention_record
+    <set>
+      <if test="dealId != null">
+        deal_id = #{dealId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="coinTokenId != null">
+        coin_token_id = #{coinTokenId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="formAddr != null">
+        form_addr = #{formAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="toAddr != null">
+        to_addr = #{toAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyValue != null">
+        money_value = #{moneyValue,jdbcType=VARCHAR},
+      </if>
+      <if test="ext != null">
+        ext = #{ext,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.minute.application.manage.entry.MentionRecord">
+    update mention_record
+    set deal_id = #{dealId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      coin_token_id = #{coinTokenId,jdbcType=BIGINT},
+      type = #{type,jdbcType=CHAR},
+      status = #{status,jdbcType=CHAR},
+      form_addr = #{formAddr,jdbcType=VARCHAR},
+      to_addr = #{toAddr,jdbcType=VARCHAR},
+      money_value = #{moneyValue,jdbcType=VARCHAR},
+      ext = #{ext,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="mentionMoneyMange" resultMap="BaseResultMap">
+		select * from
+		mention_record order by status
+	</select>
+
+	<update id="updateStatusById"
+		parameterType="com.minute.application.manage.entry.MentionRecord">
+		update mention_record
+		set
+		status = #{status,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

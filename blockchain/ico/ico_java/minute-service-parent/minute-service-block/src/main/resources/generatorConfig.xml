@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<context id="tlabs_test">
+	    <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<commentGenerator>
+			<!-- 抑制警告 -->
+			<property name="suppressTypeWarnings" value="true" />
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+			<!-- 是否生成注释代时间戳 -->
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+
+		<jdbcConnection
+			connectionURL="jdbc:mysql://106.2.3.35:3306/miao_block_test"
+			driverClass="com.mysql.jdbc.Driver" userId="root"
+			password="NJk2kgfzUNs12Vep" />
+
+		<!-- model生成文件的存放位置 -->
+		<javaModelGenerator
+			targetPackage="com.minute.service.block.entry"
+			targetProject="minute-service-block/src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="false" />
+		</javaModelGenerator>
+
+		<!-- sqlmap生成文件的存放位置 -->
+		<sqlMapGenerator targetPackage="mapper"
+			targetProject="minute-service-block/src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- dao生成文件的存放位置 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.minute.service.block.mapper"
+			targetProject="minute-service-block/src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+
+
+		<table schema="" tableName="eth_account" enableInsert="true"
+			enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
+			enableUpdateByPrimaryKey="true" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="false">
+			<generatedKey column="id" sqlStatement="Mysql" identity="true" />
+		</table>
+
+
+	</context>
+</generatorConfiguration>

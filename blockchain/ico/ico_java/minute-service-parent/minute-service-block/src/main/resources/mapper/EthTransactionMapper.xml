@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.minute.service.block.mapper.EthTransactionMapper">
+	<resultMap id="BaseResultMap"
+		type="com.minute.service.block.entry.EthTransaction">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="tx_hash" jdbcType="VARCHAR" property="txHash" />
+		<result column="from_add" jdbcType="VARCHAR" property="fromAdd" />
+		<result column="to_add" jdbcType="VARCHAR" property="toAdd" />
+		<result column="block_num" jdbcType="BIGINT"
+			property="blockNum" />
+		<result column="value" jdbcType="VARCHAR" property="value" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, tx_hash, from_add, to_add, block_num, value, create_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from eth_transaction
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from eth_transaction
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.minute.service.block.entry.EthTransaction">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into eth_transaction (tx_hash, from_add, to_add,
+		block_num, value, create_time
+		)
+		values (#{txHash,jdbcType=VARCHAR}, #{fromAdd,jdbcType=VARCHAR},
+		#{toAdd,jdbcType=VARCHAR},
+		#{blockNum,jdbcType=BIGINT}, #{value,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.minute.service.block.entry.EthTransaction">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into eth_transaction
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="txHash != null">
+				tx_hash,
+			</if>
+			<if test="fromAdd != null">
+				from_add,
+			</if>
+			<if test="toAdd != null">
+				to_add,
+			</if>
+			<if test="blockNum != null">
+				block_num,
+			</if>
+			<if test="value != null">
+				value,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="txHash != null">
+				#{txHash,jdbcType=VARCHAR},
+			</if>
+			<if test="fromAdd != null">
+				#{fromAdd,jdbcType=VARCHAR},
+			</if>
+			<if test="toAdd != null">
+				#{toAdd,jdbcType=VARCHAR},
+			</if>
+			<if test="blockNum != null">
+				#{blockNum,jdbcType=BIGINT},
+			</if>
+			<if test="value != null">
+				#{value,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.minute.service.block.entry.EthTransaction">
+		update eth_transaction
+		<set>
+			<if test="txHash != null">
+				tx_hash = #{txHash,jdbcType=VARCHAR},
+			</if>
+			<if test="fromAdd != null">
+				from_add = #{fromAdd,jdbcType=VARCHAR},
+			</if>
+			<if test="toAdd != null">
+				to_add = #{toAdd,jdbcType=VARCHAR},
+			</if>
+			<if test="blockNum != null">
+				block_num = #{blockNum,jdbcType=BIGINT},
+			</if>
+			<if test="value != null">
+				value = #{value,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.minute.service.block.entry.EthTransaction">
+		update eth_transaction
+		set tx_hash = #{txHash,jdbcType=VARCHAR},
+		from_add = #{fromAdd,jdbcType=VARCHAR},
+		to_add = #{toAdd,jdbcType=VARCHAR},
+		block_num = #{blockNum,jdbcType=BIGINT},
+		value = #{value,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+
+
+	<select id="selectRechargeRecords"
+		parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from eth_transaction
+		where to_add =#{toAdd,jdbcType=VARCHAR} and
+		block_num &gt; #{fromBlockNum,jdbcType=BIGINT}
+		and block_num &lt;= #{toBlockNum,jdbcType=BIGINT}
+	</select>
+</mapper>

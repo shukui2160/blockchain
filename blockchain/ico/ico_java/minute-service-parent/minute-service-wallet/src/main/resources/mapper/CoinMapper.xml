@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minute.service.wallet.mapper.CoinMapper">
+  <resultMap id="BaseResultMap" type="com.minute.service.wallet.entry.Coin">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="coin_name" jdbcType="VARCHAR" property="coinName" />
+    <result column="coin_code" jdbcType="VARCHAR" property="coinCode" />
+    <result column="coin_todollar" jdbcType="VARCHAR" property="coinTodollar" />
+    <result column="recharge_min" jdbcType="VARCHAR" property="rechargeMin" />
+    <result column="defalut_gas" jdbcType="VARCHAR" property="defalutGas" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, coin_name, coin_code, coin_todollar, recharge_min, defalut_gas, note, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from coin
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from coin
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.minute.service.wallet.entry.Coin">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into coin (coin_name, coin_code, coin_todollar, 
+      recharge_min, defalut_gas, note, 
+      create_time, update_time)
+    values (#{coinName,jdbcType=VARCHAR}, #{coinCode,jdbcType=VARCHAR}, #{coinTodollar,jdbcType=VARCHAR}, 
+      #{rechargeMin,jdbcType=VARCHAR}, #{defalutGas,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.minute.service.wallet.entry.Coin">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into coin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="coinName != null">
+        coin_name,
+      </if>
+      <if test="coinCode != null">
+        coin_code,
+      </if>
+      <if test="coinTodollar != null">
+        coin_todollar,
+      </if>
+      <if test="rechargeMin != null">
+        recharge_min,
+      </if>
+      <if test="defalutGas != null">
+        defalut_gas,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="coinName != null">
+        #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="coinCode != null">
+        #{coinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coinTodollar != null">
+        #{coinTodollar,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeMin != null">
+        #{rechargeMin,jdbcType=VARCHAR},
+      </if>
+      <if test="defalutGas != null">
+        #{defalutGas,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.minute.service.wallet.entry.Coin">
+    update coin
+    <set>
+      <if test="coinName != null">
+        coin_name = #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="coinCode != null">
+        coin_code = #{coinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coinTodollar != null">
+        coin_todollar = #{coinTodollar,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeMin != null">
+        recharge_min = #{rechargeMin,jdbcType=VARCHAR},
+      </if>
+      <if test="defalutGas != null">
+        defalut_gas = #{defalutGas,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.minute.service.wallet.entry.Coin">
+    update coin
+    set coin_name = #{coinName,jdbcType=VARCHAR},
+      coin_code = #{coinCode,jdbcType=VARCHAR},
+      coin_todollar = #{coinTodollar,jdbcType=VARCHAR},
+      recharge_min = #{rechargeMin,jdbcType=VARCHAR},
+      defalut_gas = #{defalutGas,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  	<select id="mangeOfCoin" resultMap="BaseResultMap">
+		select * from coin
+	</select>
+
+	<select id="selectCoinName" resultType="java.lang.String">
+		select coin_name from
+		coin where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<select id="selectMangeBycoinName" resultType="java.lang.String">
+		select
+		defalut_gas from coin where coin_name =
+		#{coinName,jdbcType=VARCHAR}
+	</select>
+</mapper>

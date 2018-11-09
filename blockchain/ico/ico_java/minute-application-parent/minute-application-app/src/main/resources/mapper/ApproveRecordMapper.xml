@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.minute.application.app.mapper.ApproveRecordMapper">
+	<resultMap id="BaseResultMap"
+		type="com.minute.application.app.entry.ApproveRecord">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="project_name" jdbcType="VARCHAR"
+			property="projectName" />
+		<result column="status" jdbcType="CHAR" property="status" />
+		<result column="sys_user_id" jdbcType="BIGINT"
+			property="sysUserId" />
+		<result column="fail_reason" jdbcType="VARCHAR"
+			property="failReason" />
+		<result column="note" jdbcType="VARCHAR" property="note" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, project_name, status, sys_user_id, fail_reason, note, create_time,
+		update_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from approve_record
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from approve_record
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.minute.application.app.entry.ApproveRecord">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into approve_record (project_name, status, sys_user_id,
+		fail_reason, note, create_time,
+		update_time)
+		values (#{projectName,jdbcType=VARCHAR}, #{status,jdbcType=CHAR},
+		#{sysUserId,jdbcType=BIGINT},
+		#{failReason,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.minute.application.app.entry.ApproveRecord">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into approve_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="projectName != null">
+				project_name,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="sysUserId != null">
+				sys_user_id,
+			</if>
+			<if test="failReason != null">
+				fail_reason,
+			</if>
+			<if test="note != null">
+				note,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="projectName != null">
+				#{projectName,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+			</if>
+			<if test="sysUserId != null">
+				#{sysUserId,jdbcType=BIGINT},
+			</if>
+			<if test="failReason != null">
+				#{failReason,jdbcType=VARCHAR},
+			</if>
+			<if test="note != null">
+				#{note,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.minute.application.app.entry.ApproveRecord">
+		update approve_record
+		<set>
+			<if test="projectName != null">
+				project_name = #{projectName,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=CHAR},
+			</if>
+			<if test="sysUserId != null">
+				sys_user_id = #{sysUserId,jdbcType=BIGINT},
+			</if>
+			<if test="failReason != null">
+				fail_reason = #{failReason,jdbcType=VARCHAR},
+			</if>
+			<if test="note != null">
+				note = #{note,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.minute.application.app.entry.ApproveRecord">
+		update approve_record
+		set project_name = #{projectName,jdbcType=VARCHAR},
+		status = #{status,jdbcType=CHAR},
+		sys_user_id = #{sysUserId,jdbcType=BIGINT},
+		fail_reason = #{failReason,jdbcType=VARCHAR},
+		note = #{note,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+</mapper>

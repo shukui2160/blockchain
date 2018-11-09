@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.minute.service.wallet.mapper.SysRecordMapper">
+	<resultMap id="BaseResultMap"
+		type="com.minute.service.wallet.entry.SysRecord">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="sys_name" jdbcType="VARCHAR" property="sysName" />
+		<result column="sys_wallet_id" jdbcType="BIGINT"
+			property="sysWalletId" />
+		<result column="coin_id" jdbcType="BIGINT" property="coinId" />
+		<result column="txid" jdbcType="VARCHAR" property="txid" />
+		<result column="status" jdbcType="VARCHAR" property="status" />
+		<result column="from_addr" jdbcType="VARCHAR"
+			property="fromAddr" />
+		<result column="to_addr" jdbcType="VARCHAR" property="toAddr" />
+		<result column="money_value" jdbcType="VARCHAR"
+			property="moneyValue" />
+		<result column="note" jdbcType="VARCHAR" property="note" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, sys_name, sys_wallet_id, coin_id, txid, status, from_addr, to_addr,
+		money_value,
+		note, create_time, update_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_record
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from sys_record
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.minute.service.wallet.entry.SysRecord">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into sys_record (sys_name, sys_wallet_id, coin_id,
+		txid, status, from_addr,
+		to_addr, money_value, note,
+		create_time, update_time)
+		values (#{sysName,jdbcType=VARCHAR}, #{sysWalletId,jdbcType=BIGINT},
+		#{coinId,jdbcType=BIGINT},
+		#{txid,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{fromAddr,jdbcType=VARCHAR},
+		#{toAddr,jdbcType=VARCHAR}, #{moneyValue,jdbcType=VARCHAR},
+		#{note,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.minute.service.wallet.entry.SysRecord">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into sys_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sysName != null">
+				sys_name,
+			</if>
+			<if test="sysWalletId != null">
+				sys_wallet_id,
+			</if>
+			<if test="coinId != null">
+				coin_id,
+			</if>
+			<if test="txid != null">
+				txid,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="fromAddr != null">
+				from_addr,
+			</if>
+			<if test="toAddr != null">
+				to_addr,
+			</if>
+			<if test="moneyValue != null">
+				money_value,
+			</if>
+			<if test="note != null">
+				note,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sysName != null">
+				#{sysName,jdbcType=VARCHAR},
+			</if>
+			<if test="sysWalletId != null">
+				#{sysWalletId,jdbcType=BIGINT},
+			</if>
+			<if test="coinId != null">
+				#{coinId,jdbcType=BIGINT},
+			</if>
+			<if test="txid != null">
+				#{txid,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="fromAddr != null">
+				#{fromAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="toAddr != null">
+				#{toAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="moneyValue != null">
+				#{moneyValue,jdbcType=VARCHAR},
+			</if>
+			<if test="note != null">
+				#{note,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.minute.service.wallet.entry.SysRecord">
+		update sys_record
+		<set>
+			<if test="sysName != null">
+				sys_name = #{sysName,jdbcType=VARCHAR},
+			</if>
+			<if test="sysWalletId != null">
+				sys_wallet_id = #{sysWalletId,jdbcType=BIGINT},
+			</if>
+			<if test="coinId != null">
+				coin_id = #{coinId,jdbcType=BIGINT},
+			</if>
+			<if test="txid != null">
+				txid = #{txid,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="fromAddr != null">
+				from_addr = #{fromAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="toAddr != null">
+				to_addr = #{toAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="moneyValue != null">
+				money_value = #{moneyValue,jdbcType=VARCHAR},
+			</if>
+			<if test="note != null">
+				note = #{note,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.minute.service.wallet.entry.SysRecord">
+		update sys_record
+		set sys_name = #{sysName,jdbcType=VARCHAR},
+		sys_wallet_id = #{sysWalletId,jdbcType=BIGINT},
+		coin_id = #{coinId,jdbcType=BIGINT},
+		txid = #{txid,jdbcType=VARCHAR},
+		status = #{status,jdbcType=VARCHAR},
+		from_addr = #{fromAddr,jdbcType=VARCHAR},
+		to_addr = #{toAddr,jdbcType=VARCHAR},
+		money_value = #{moneyValue,jdbcType=VARCHAR},
+		note = #{note,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<select id="selectTxidByStatus" resultType="java.lang.String">
+		select txid from sys_record where status = 1
+	</select>
+
+	<update id="updateStatusByTxid"
+		parameterType="java.lang.String">
+		update sys_record set status = 2 where txid = #{txid,jdbcType=VARCHAR}
+	</update>
+</mapper>

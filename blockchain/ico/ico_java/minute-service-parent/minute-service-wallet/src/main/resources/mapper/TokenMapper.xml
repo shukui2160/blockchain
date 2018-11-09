@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minute.service.wallet.mapper.TokenMapper">
+	<resultMap id="BaseResultMap"
+		type="com.minute.service.wallet.entry.Token">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="user_id" jdbcType="BIGINT" property="userId" />
+		<result column="token_code" jdbcType="VARCHAR"
+			property="tokenCode" />
+		<result column="token_add" jdbcType="VARCHAR"
+			property="tokenAdd" />
+		<result column="token_logo" jdbcType="VARCHAR"
+			property="tokenLogo" />
+		<result column="token_des" jdbcType="VARCHAR"
+			property="tokenDes" />
+		<result column="circulation" jdbcType="VARCHAR"
+			property="circulation" />
+		<result column="decimals" jdbcType="VARCHAR"
+			property="decimals" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, token_code, token_add, token_logo, token_des, circulation,
+		decimals,
+		create_time, update_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from token
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from token
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.minute.service.wallet.entry.Token">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into token (user_id, token_code, token_add,
+		token_logo, token_des, circulation,
+		decimals, create_time, update_time
+		)
+		values (#{userId,jdbcType=BIGINT}, #{tokenCode,jdbcType=VARCHAR},
+		#{tokenAdd,jdbcType=VARCHAR},
+		#{tokenLogo,jdbcType=VARCHAR}, #{tokenDes,jdbcType=VARCHAR}, #{circulation,jdbcType=VARCHAR},
+		#{decimals,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.minute.service.wallet.entry.Token">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into token
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="tokenCode != null">
+				token_code,
+			</if>
+			<if test="tokenAdd != null">
+				token_add,
+			</if>
+			<if test="tokenLogo != null">
+				token_logo,
+			</if>
+			<if test="tokenDes != null">
+				token_des,
+			</if>
+			<if test="circulation != null">
+				circulation,
+			</if>
+			<if test="decimals != null">
+				decimals,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="tokenCode != null">
+				#{tokenCode,jdbcType=VARCHAR},
+			</if>
+			<if test="tokenAdd != null">
+				#{tokenAdd,jdbcType=VARCHAR},
+			</if>
+			<if test="tokenLogo != null">
+				#{tokenLogo,jdbcType=VARCHAR},
+			</if>
+			<if test="tokenDes != null">
+				#{tokenDes,jdbcType=VARCHAR},
+			</if>
+			<if test="circulation != null">
+				#{circulation,jdbcType=VARCHAR},
+			</if>
+			<if test="decimals != null">
+				#{decimals,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.minute.service.wallet.entry.Token">
+		update token
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="tokenCode != null">
+				token_code = #{tokenCode,jdbcType=VARCHAR},
+			</if>
+			<if test="tokenAdd != null">
+				token_add = #{tokenAdd,jdbcType=VARCHAR},
+			</if>
+			<if test="tokenLogo != null">
+				token_logo = #{tokenLogo,jdbcType=VARCHAR},
+			</if>
+			<if test="tokenDes != null">
+				token_des = #{tokenDes,jdbcType=VARCHAR},
+			</if>
+			<if test="circulation != null">
+				circulation = #{circulation,jdbcType=VARCHAR},
+			</if>
+			<if test="decimals != null">
+				decimals = #{decimals,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.minute.service.wallet.entry.Token">
+		update token
+		set user_id = #{userId,jdbcType=BIGINT},
+		token_code = #{tokenCode,jdbcType=VARCHAR},
+		token_add = #{tokenAdd,jdbcType=VARCHAR},
+		token_logo = #{tokenLogo,jdbcType=VARCHAR},
+		token_des = #{tokenDes,jdbcType=VARCHAR},
+		circulation = #{circulation,jdbcType=VARCHAR},
+		decimals = #{decimals,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+
+
+	<select id="selectByUserId" parameterType="java.lang.Long"
+		resultType="java.util.Map">
+		select id as id ,
+		token_code as tokenCode , token_add as
+		tokenAdd,token_logo as tokenLogo
+		from
+		token
+		where user_id =
+		#{userId,jdbcType=BIGINT}
+	</select>
+
+</mapper>

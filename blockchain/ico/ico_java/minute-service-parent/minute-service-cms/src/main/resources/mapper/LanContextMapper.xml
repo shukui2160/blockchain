@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.minute.service.cms.mapper.LanContextMapper">
+	<resultMap id="BaseResultMap"
+		type="com.minute.service.cms.entry.LanContext">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="topic_id" jdbcType="BIGINT" property="topicId" />
+		<result column="topic_type" jdbcType="CHAR"
+			property="topicType" />
+		<result column="lan_id" jdbcType="BIGINT" property="lanId" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+		type="com.minute.service.cms.entry.LanContext">
+		<result column="context" jdbcType="LONGVARCHAR"
+			property="context" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, topic_id, topic_type, lan_id, create_time, update_time
+	</sql>
+	<sql id="Blob_Column_List">
+		context
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from lan_context
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		lan_context
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.minute.service.cms.entry.LanContext">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into lan_context (topic_id, topic_type, lan_id,
+		create_time,
+		update_time, context
+		)
+		values (#{topicId,jdbcType=BIGINT},
+		#{topicType,jdbcType=CHAR},
+		#{lanId,jdbcType=BIGINT},
+		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+		#{context,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.minute.service.cms.entry.LanContext">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into lan_context
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="topicId != null">
+				topic_id,
+			</if>
+			<if test="topicType != null">
+				topic_type,
+			</if>
+			<if test="lanId != null">
+				lan_id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="context != null">
+				context,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="topicId != null">
+				#{topicId,jdbcType=BIGINT},
+			</if>
+			<if test="topicType != null">
+				#{topicType,jdbcType=CHAR},
+			</if>
+			<if test="lanId != null">
+				#{lanId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="context != null">
+				#{context,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.minute.service.cms.entry.LanContext">
+		update lan_context
+		<set>
+			<if test="topicId != null">
+				topic_id = #{topicId,jdbcType=BIGINT},
+			</if>
+			<if test="topicType != null">
+				topic_type = #{topicType,jdbcType=CHAR},
+			</if>
+			<if test="lanId != null">
+				lan_id = #{lanId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="context != null">
+				context = #{context,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs"
+		parameterType="com.minute.service.cms.entry.LanContext">
+		update lan_context
+		set topic_id =
+		#{topicId,jdbcType=BIGINT},
+		topic_type = #{topicType,jdbcType=CHAR},
+		lan_id = #{lanId,jdbcType=BIGINT},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP},
+		context =
+		#{context,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.minute.service.cms.entry.LanContext">
+		update lan_context
+		set topic_id =
+		#{topicId,jdbcType=BIGINT},
+		topic_type = #{topicType,jdbcType=CHAR},
+		lan_id = #{lanId,jdbcType=BIGINT},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+
+
+	<select id="selectContext" resultType="java.lang.String">
+		select
+		context from
+		lan_context where topic_id = #{topicId,jdbcType=BIGINT}
+		and
+		topic_type=#{topicType,jdbcType=CHAR} and lan_id =
+		#{lanId,jdbcType=BIGINT}
+	</select>
+	
+	<select id="contextMange" resultType="java.lang.String">
+		select
+		context from
+		lan_context where topic_id = #{topicId,jdbcType=BIGINT}
+	</select>
+	
+	<select id="selectByTopicIdAndTopicType" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />,
+	    <include refid="Blob_Column_List" />
+		from lan_context
+		where topic_id = #{topicId,jdbcType=BIGINT}
+		and
+		topic_type=#{topicType,jdbcType=CHAR} and lan_id =
+		#{lanId,jdbcType=BIGINT}
+	</select>
+	
+
+	
+</mapper>

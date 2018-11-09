@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.minute.service.block.mapper.EthTokenMapper">
+	<resultMap id="BaseResultMap"
+		type="com.minute.service.block.entry.EthToken">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="contract_address" jdbcType="VARCHAR"
+			property="contractAddress" />
+		<result column="token_code" jdbcType="VARCHAR"
+			property="tokenCode" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, contract_address, token_code, create_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from eth_token
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		eth_token
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.minute.service.block.entry.EthToken">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into eth_token (contract_address, token_code, create_time
+		)
+		values (#{contractAddress,jdbcType=VARCHAR},
+		#{tokenCode,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.minute.service.block.entry.EthToken">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into eth_token
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="contractAddress != null">
+				contract_address,
+			</if>
+			<if test="tokenCode != null">
+				token_code,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="contractAddress != null">
+				#{contractAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="tokenCode != null">
+				#{tokenCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.minute.service.block.entry.EthToken">
+		update eth_token
+		<set>
+			<if test="contractAddress != null">
+				contract_address = #{contractAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="tokenCode != null">
+				token_code = #{tokenCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.minute.service.block.entry.EthToken">
+		update eth_token
+		set contract_address =
+		#{contractAddress,jdbcType=VARCHAR},
+		token_code =
+		#{tokenCode,jdbcType=VARCHAR},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<select id="selectByContractAddress"
+		parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from eth_token
+		where contract_address =
+		#{contractAddress,jdbcType=VARCHAR}
+	</select>
+</mapper>

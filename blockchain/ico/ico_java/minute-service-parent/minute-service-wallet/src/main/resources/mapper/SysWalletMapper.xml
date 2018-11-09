@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.minute.service.wallet.mapper.SysWalletMapper">
+	<resultMap id="BaseResultMap"
+		type="com.minute.service.wallet.entry.SysWallet">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="sys_user_id" jdbcType="BIGINT"
+			property="sysUserId" />
+		<result column="wallet_name" jdbcType="VARCHAR"
+			property="walletName" />
+		<result column="type" jdbcType="CHAR" property="type" />
+		<result column="wallet_money" jdbcType="BIGINT"
+			property="walletMoney" />
+		<result column="create_sys_user_id" jdbcType="BIGINT"
+			property="createSysUserId" />
+		<result column="note" jdbcType="VARCHAR" property="note" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, sys_user_id, wallet_name, type, wallet_money, create_sys_user_id,
+		note, create_time,
+		update_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_wallet
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from sys_wallet
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.minute.service.wallet.entry.SysWallet">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into sys_wallet (sys_user_id, wallet_name, type,
+		wallet_money, create_sys_user_id, note,
+		create_time, update_time)
+		values (#{sysUserId,jdbcType=BIGINT}, #{walletName,jdbcType=VARCHAR},
+		#{type,jdbcType=CHAR},
+		#{walletMoney,jdbcType=BIGINT}, #{createSysUserId,jdbcType=BIGINT}, #{note,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.minute.service.wallet.entry.SysWallet">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into sys_wallet
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sysUserId != null">
+				sys_user_id,
+			</if>
+			<if test="walletName != null">
+				wallet_name,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="walletMoney != null">
+				wallet_money,
+			</if>
+			<if test="createSysUserId != null">
+				create_sys_user_id,
+			</if>
+			<if test="note != null">
+				note,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sysUserId != null">
+				#{sysUserId,jdbcType=BIGINT},
+			</if>
+			<if test="walletName != null">
+				#{walletName,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=CHAR},
+			</if>
+			<if test="walletMoney != null">
+				#{walletMoney,jdbcType=BIGINT},
+			</if>
+			<if test="createSysUserId != null">
+				#{createSysUserId,jdbcType=BIGINT},
+			</if>
+			<if test="note != null">
+				#{note,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.minute.service.wallet.entry.SysWallet">
+		update sys_wallet
+		<set>
+			<if test="sysUserId != null">
+				sys_user_id = #{sysUserId,jdbcType=BIGINT},
+			</if>
+			<if test="walletName != null">
+				wallet_name = #{walletName,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=CHAR},
+			</if>
+			<if test="walletMoney != null">
+				wallet_money = #{walletMoney,jdbcType=BIGINT},
+			</if>
+			<if test="createSysUserId != null">
+				create_sys_user_id = #{createSysUserId,jdbcType=BIGINT},
+			</if>
+			<if test="note != null">
+				note = #{note,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.minute.service.wallet.entry.SysWallet">
+		update sys_wallet
+		set sys_user_id = #{sysUserId,jdbcType=BIGINT},
+		wallet_name = #{walletName,jdbcType=VARCHAR},
+		type = #{type,jdbcType=CHAR},
+		wallet_money = #{walletMoney,jdbcType=BIGINT},
+		create_sys_user_id = #{createSysUserId,jdbcType=BIGINT},
+		note = #{note,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<select id="sysWalletMange" resultMap="BaseResultMap">
+		select * from sys_wallet
+	</select>
+	
+	<select id="selectWalletById" resultType="java.lang.String">
+		select wallet_name from sys_wallet where id = #{id,jdbcType=BIGINT}
+	</select>
+</mapper>

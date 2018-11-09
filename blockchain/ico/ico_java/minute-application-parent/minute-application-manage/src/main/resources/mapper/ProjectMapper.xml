@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.minute.application.manage.mapper.ProjectMapper">
+	<resultMap id="BaseResultMap"
+		type="com.minute.application.manage.entry.Project">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="user_id" jdbcType="BIGINT" property="userId" />
+		<result column="project_logo" jdbcType="VARCHAR"
+			property="projectLogo" />
+		<result column="team_id" jdbcType="BIGINT" property="teamId" />
+		<result column="token_id" jdbcType="BIGINT" property="tokenId" />
+		<result column="token_num" jdbcType="VARCHAR"
+			property="tokenNum" />
+		<result column="collect_num" jdbcType="VARCHAR"
+			property="collectNum" />
+		<result column="collected_num" jdbcType="VARCHAR"
+			property="collectedNum" />
+		<result column="min_invest" jdbcType="VARCHAR"
+			property="minInvest" />
+		<result column="max_invest" jdbcType="VARCHAR"
+			property="maxInvest" />
+		<result column="start_time" jdbcType="TIMESTAMP"
+			property="startTime" />
+		<result column="end_time" jdbcType="TIMESTAMP"
+			property="endTime" />
+		<result column="status" jdbcType="CHAR" property="status" />
+		<result column="coin_id" jdbcType="BIGINT" property="coinId" />
+		<result column="up_exchange_time" jdbcType="TIMESTAMP"
+			property="upExchangeTime" />
+		<result column="coin_proportion" jdbcType="VARCHAR"
+			property="coinProportion" />
+		<result column="coin_price" jdbcType="VARCHAR"
+			property="coinPrice" />
+		<result column="wallet_id" jdbcType="VARCHAR"
+			property="walletId" />
+		<result column="project_name" jdbcType="VARCHAR"
+			property="projectName" />
+		<result column="white_paper" jdbcType="VARCHAR"
+			property="whitePaper" />
+		<result column="website" jdbcType="VARCHAR" property="website" />
+		<result column="telegram_group" jdbcType="VARCHAR"
+			property="telegramGroup" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, project_logo, team_id, token_id, token_num, collect_num,
+		collected_num,
+		min_invest, max_invest, start_time, end_time, status, coin_id, up_exchange_time,
+		coin_proportion, coin_price, wallet_id, project_name, white_paper,
+		website, telegram_group,
+		create_time, update_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from project
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from project
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.minute.application.manage.entry.Project">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into project (user_id, project_logo, team_id,
+		token_id, token_num, collect_num,
+		collected_num, min_invest, max_invest,
+		start_time, end_time, status,
+		coin_id, up_exchange_time, coin_proportion,
+		coin_price, wallet_id, project_name,
+		white_paper, website, telegram_group,
+		create_time, update_time)
+		values (#{userId,jdbcType=BIGINT}, #{projectLogo,jdbcType=VARCHAR},
+		#{teamId,jdbcType=BIGINT},
+		#{tokenId,jdbcType=BIGINT}, #{tokenNum,jdbcType=VARCHAR}, #{collectNum,jdbcType=VARCHAR},
+		#{collectedNum,jdbcType=VARCHAR}, #{minInvest,jdbcType=VARCHAR},
+		#{maxInvest,jdbcType=VARCHAR},
+		#{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR},
+		#{coinId,jdbcType=BIGINT}, #{upExchangeTime,jdbcType=TIMESTAMP},
+		#{coinProportion,jdbcType=VARCHAR},
+		#{coinPrice,jdbcType=VARCHAR}, #{walletId,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR},
+		#{whitePaper,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR},
+		#{telegramGroup,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.minute.application.manage.entry.Project">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into project
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="projectLogo != null">
+				project_logo,
+			</if>
+			<if test="teamId != null">
+				team_id,
+			</if>
+			<if test="tokenId != null">
+				token_id,
+			</if>
+			<if test="tokenNum != null">
+				token_num,
+			</if>
+			<if test="collectNum != null">
+				collect_num,
+			</if>
+			<if test="collectedNum != null">
+				collected_num,
+			</if>
+			<if test="minInvest != null">
+				min_invest,
+			</if>
+			<if test="maxInvest != null">
+				max_invest,
+			</if>
+			<if test="startTime != null">
+				start_time,
+			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="coinId != null">
+				coin_id,
+			</if>
+			<if test="upExchangeTime != null">
+				up_exchange_time,
+			</if>
+			<if test="coinProportion != null">
+				coin_proportion,
+			</if>
+			<if test="coinPrice != null">
+				coin_price,
+			</if>
+			<if test="walletId != null">
+				wallet_id,
+			</if>
+			<if test="projectName != null">
+				project_name,
+			</if>
+			<if test="whitePaper != null">
+				white_paper,
+			</if>
+			<if test="website != null">
+				website,
+			</if>
+			<if test="telegramGroup != null">
+				telegram_group,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="projectLogo != null">
+				#{projectLogo,jdbcType=VARCHAR},
+			</if>
+			<if test="teamId != null">
+				#{teamId,jdbcType=BIGINT},
+			</if>
+			<if test="tokenId != null">
+				#{tokenId,jdbcType=BIGINT},
+			</if>
+			<if test="tokenNum != null">
+				#{tokenNum,jdbcType=VARCHAR},
+			</if>
+			<if test="collectNum != null">
+				#{collectNum,jdbcType=VARCHAR},
+			</if>
+			<if test="collectedNum != null">
+				#{collectedNum,jdbcType=VARCHAR},
+			</if>
+			<if test="minInvest != null">
+				#{minInvest,jdbcType=VARCHAR},
+			</if>
+			<if test="maxInvest != null">
+				#{maxInvest,jdbcType=VARCHAR},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+			</if>
+			<if test="coinId != null">
+				#{coinId,jdbcType=BIGINT},
+			</if>
+			<if test="upExchangeTime != null">
+				#{upExchangeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="coinProportion != null">
+				#{coinProportion,jdbcType=VARCHAR},
+			</if>
+			<if test="coinPrice != null">
+				#{coinPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="walletId != null">
+				#{walletId,jdbcType=VARCHAR},
+			</if>
+			<if test="projectName != null">
+				#{projectName,jdbcType=VARCHAR},
+			</if>
+			<if test="whitePaper != null">
+				#{whitePaper,jdbcType=VARCHAR},
+			</if>
+			<if test="website != null">
+				#{website,jdbcType=VARCHAR},
+			</if>
+			<if test="telegramGroup != null">
+				#{telegramGroup,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.minute.application.manage.entry.Project">
+		update project
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="projectLogo != null">
+				project_logo = #{projectLogo,jdbcType=VARCHAR},
+			</if>
+			<if test="teamId != null">
+				team_id = #{teamId,jdbcType=BIGINT},
+			</if>
+			<if test="tokenId != null">
+				token_id = #{tokenId,jdbcType=BIGINT},
+			</if>
+			<if test="tokenNum != null">
+				token_num = #{tokenNum,jdbcType=VARCHAR},
+			</if>
+			<if test="collectNum != null">
+				collect_num = #{collectNum,jdbcType=VARCHAR},
+			</if>
+			<if test="collectedNum != null">
+				collected_num = #{collectedNum,jdbcType=VARCHAR},
+			</if>
+			<if test="minInvest != null">
+				min_invest = #{minInvest,jdbcType=VARCHAR},
+			</if>
+			<if test="maxInvest != null">
+				max_invest = #{maxInvest,jdbcType=VARCHAR},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=CHAR},
+			</if>
+			<if test="coinId != null">
+				coin_id = #{coinId,jdbcType=BIGINT},
+			</if>
+			<if test="upExchangeTime != null">
+				up_exchange_time = #{upExchangeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="coinProportion != null">
+				coin_proportion = #{coinProportion,jdbcType=VARCHAR},
+			</if>
+			<if test="coinPrice != null">
+				coin_price = #{coinPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="walletId != null">
+				wallet_id = #{walletId,jdbcType=VARCHAR},
+			</if>
+			<if test="projectName != null">
+				project_name = #{projectName,jdbcType=VARCHAR},
+			</if>
+			<if test="whitePaper != null">
+				white_paper = #{whitePaper,jdbcType=VARCHAR},
+			</if>
+			<if test="website != null">
+				website = #{website,jdbcType=VARCHAR},
+			</if>
+			<if test="telegramGroup != null">
+				telegram_group = #{telegramGroup,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.minute.application.manage.entry.Project">
+		update project
+		set user_id = #{userId,jdbcType=BIGINT},
+		project_logo = #{projectLogo,jdbcType=VARCHAR},
+		team_id = #{teamId,jdbcType=BIGINT},
+		token_id = #{tokenId,jdbcType=BIGINT},
+		token_num = #{tokenNum,jdbcType=VARCHAR},
+		collect_num = #{collectNum,jdbcType=VARCHAR},
+		collected_num = #{collectedNum,jdbcType=VARCHAR},
+		min_invest = #{minInvest,jdbcType=VARCHAR},
+		max_invest = #{maxInvest,jdbcType=VARCHAR},
+		start_time = #{startTime,jdbcType=TIMESTAMP},
+		end_time = #{endTime,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=CHAR},
+		coin_id = #{coinId,jdbcType=BIGINT},
+		up_exchange_time = #{upExchangeTime,jdbcType=TIMESTAMP},
+		coin_proportion = #{coinProportion,jdbcType=VARCHAR},
+		coin_price = #{coinPrice,jdbcType=VARCHAR},
+		wallet_id = #{walletId,jdbcType=VARCHAR},
+		project_name = #{projectName,jdbcType=VARCHAR},
+		white_paper = #{whitePaper,jdbcType=VARCHAR},
+		website = #{website,jdbcType=VARCHAR},
+		telegram_group = #{telegramGroup,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<select id="selectProjectByStatus" resultMap="BaseResultMap">
+		select * from project where 1=1
+		<if test="status != null and status != ''">
+			and status like CONCAT('%', #{status,jdbcType=CHAR}, '%')
+		</if>
+		<if test="project_name != null and project_name != ''">
+			and project_name like CONCAT('%',
+			#{project_name,jdbcType=VARCHAR} ,
+			'%')
+		</if>
+		order by status
+	</select>
+
+	<update id="updateProjectStatus"
+		parameterType="com.minute.application.manage.entry.Project">
+		update project set status = #{status,jdbcType=CHAR} where id =
+		#{id,jdbcType=BIGINT}
+	</update>
+
+	<select id="indexListByUserId" resultMap="BaseResultMap">
+		(select
+		<include refid="Base_Column_List" />
+		from project
+		where status = '4' AND user_id =
+		#{userId,jdbcType=BIGINT}
+		AND start_time &gt;
+		#{currentTime,jdbcType=TIMESTAMP})
+
+		union all
+		(select
+		<include refid="Base_Column_List" />
+		from project
+		where status = '4' AND user_id =
+		#{userId,jdbcType=BIGINT}
+		AND start_time &lt;
+		#{currentTime,jdbcType=TIMESTAMP} AND
+		end_time &gt;
+		#{currentTime,jdbcType=TIMESTAMP})
+
+		union all
+		(select
+		<include refid="Base_Column_List" />
+		from project
+		where status = '4' AND user_id !=
+		#{userId,jdbcType=BIGINT} AND start_time &lt;
+		#{currentTime,jdbcType=TIMESTAMP} AND
+		end_time &gt;
+		#{currentTime,jdbcType=TIMESTAMP} order by start_time DESC)
+
+		union all
+		(select
+		<include refid="Base_Column_List" />
+		from project
+		where status = '4' AND user_id !=
+		#{userId,jdbcType=BIGINT} AND start_time &gt;
+		#{currentTime,jdbcType=TIMESTAMP} order by
+		start_time DESC)
+
+		union all
+		(select
+		<include refid="Base_Column_List" />
+		from project
+		where status = '9' AND user_id !=
+		#{userId,jdbcType=BIGINT}
+		order by start_time DESC)
+	</select>
+
+	<select id="indexList" resultMap="BaseResultMap">
+		(select
+		<include refid="Base_Column_List" />
+		from project
+		where status = '4' AND start_time &lt;
+		#{currentTime,jdbcType=TIMESTAMP} AND
+		end_time &gt;
+		#{currentTime,jdbcType=TIMESTAMP} order by start_time DESC)
+
+		union all
+		(select
+		<include refid="Base_Column_List" />
+		from project
+		where status = '4' AND start_time &gt;
+		#{currentTime,jdbcType=TIMESTAMP} order by start_time DESC)
+
+		union all
+		(select
+		<include refid="Base_Column_List" />
+		from project
+		where status = '9' order by start_time DESC)
+	</select>
+
+</mapper>

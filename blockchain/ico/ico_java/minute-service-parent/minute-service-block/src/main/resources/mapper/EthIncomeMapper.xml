@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.minute.service.block.mapper.EthIncomeMapper">
+	<resultMap id="BaseResultMap"
+		type="com.minute.service.block.entry.EthIncome">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="deal_id" jdbcType="VARCHAR" property="dealId" />
+		<result column="tx_hash" jdbcType="VARCHAR" property="txHash" />
+		<result column="from_add" jdbcType="VARCHAR" property="fromAdd" />
+		<result column="to_add" jdbcType="VARCHAR" property="toAdd" />
+		<result column="transaction_type" jdbcType="CHAR"
+			property="transactionType" />
+		<result column="status" jdbcType="CHAR" property="status" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, deal_id, tx_hash, from_add, to_add, transaction_type,
+		status,
+		create_time, update_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from eth_income
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		eth_income
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.minute.service.block.entry.EthIncome">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into eth_income (deal_id, tx_hash, from_add,
+		to_add,
+		transaction_type, status,
+		create_time, update_time)
+		values
+		(#{dealId,jdbcType=VARCHAR}, #{txHash,jdbcType=VARCHAR},
+		#{fromAdd,jdbcType=VARCHAR},
+		#{toAdd,jdbcType=VARCHAR},
+		#{transactionType,jdbcType=CHAR}, #{status,jdbcType=CHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.minute.service.block.entry.EthIncome">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into eth_income
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dealId != null">
+				deal_id,
+			</if>
+			<if test="txHash != null">
+				tx_hash,
+			</if>
+			<if test="fromAdd != null">
+				from_add,
+			</if>
+			<if test="toAdd != null">
+				to_add,
+			</if>
+			<if test="transactionType != null">
+				transaction_type,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="dealId != null">
+				#{dealId,jdbcType=VARCHAR},
+			</if>
+			<if test="txHash != null">
+				#{txHash,jdbcType=VARCHAR},
+			</if>
+			<if test="fromAdd != null">
+				#{fromAdd,jdbcType=VARCHAR},
+			</if>
+			<if test="toAdd != null">
+				#{toAdd,jdbcType=VARCHAR},
+			</if>
+			<if test="transactionType != null">
+				#{transactionType,jdbcType=CHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.minute.service.block.entry.EthIncome">
+		update eth_income
+		<set>
+			<if test="dealId != null">
+				deal_id = #{dealId,jdbcType=VARCHAR},
+			</if>
+			<if test="txHash != null">
+				tx_hash = #{txHash,jdbcType=VARCHAR},
+			</if>
+			<if test="fromAdd != null">
+				from_add = #{fromAdd,jdbcType=VARCHAR},
+			</if>
+			<if test="toAdd != null">
+				to_add = #{toAdd,jdbcType=VARCHAR},
+			</if>
+			<if test="transactionType != null">
+				transaction_type = #{transactionType,jdbcType=CHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=CHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.minute.service.block.entry.EthIncome">
+		update eth_income
+		set deal_id =
+		#{dealId,jdbcType=VARCHAR},
+		tx_hash = #{txHash,jdbcType=VARCHAR},
+		from_add = #{fromAdd,jdbcType=VARCHAR},
+		to_add =
+		#{toAdd,jdbcType=VARCHAR},
+		transaction_type =
+		#{transactionType,jdbcType=CHAR},
+		status = #{status,jdbcType=CHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+
+	<select id="selectByStatus" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from eth_income
+		where status = #{status,jdbcType=CHAR}
+	</select>
+
+</mapper>

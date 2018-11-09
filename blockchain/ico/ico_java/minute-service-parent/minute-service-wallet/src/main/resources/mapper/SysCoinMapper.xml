@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.minute.service.wallet.mapper.SysCoinMapper">
+	<resultMap id="BaseResultMap"
+		type="com.minute.service.wallet.entry.SysCoin">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="coin_id" jdbcType="BIGINT" property="coinId" />
+		<result column="wallet_id" jdbcType="BIGINT"
+			property="walletId" />
+		<result column="type" jdbcType="CHAR" property="type" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="account_num" jdbcType="VARCHAR"
+			property="accountNum" />
+		<result column="account_available_num" jdbcType="VARCHAR"
+			property="accountAvailableNum" />
+		<result column="account_lock_num" jdbcType="VARCHAR"
+			property="accountLockNum" />
+		<result column="chain_blance" jdbcType="VARCHAR"
+			property="chainBlance" />
+		<result column="trans_hash_num" jdbcType="BIGINT"
+			property="transHashNum" />
+		<result column="note" jdbcType="VARCHAR" property="note" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, coin_id, wallet_id, type, address, account_num,
+		account_available_num, account_lock_num,
+		chain_blance, trans_hash_num, note, create_time, update_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_coin
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from sys_coin
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.minute.service.wallet.entry.SysCoin">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into sys_coin (coin_id, wallet_id, type,
+		address, account_num, account_available_num,
+		account_lock_num, chain_blance, trans_hash_num,
+		note, create_time, update_time
+		)
+		values (#{coinId,jdbcType=BIGINT}, #{walletId,jdbcType=BIGINT},
+		#{type,jdbcType=CHAR},
+		#{address,jdbcType=VARCHAR}, #{accountNum,jdbcType=VARCHAR},
+		#{accountAvailableNum,jdbcType=VARCHAR},
+		#{accountLockNum,jdbcType=VARCHAR}, #{chainBlance,jdbcType=VARCHAR},
+		#{transHashNum,jdbcType=BIGINT},
+		#{note,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.minute.service.wallet.entry.SysCoin">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into sys_coin
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="coinId != null">
+				coin_id,
+			</if>
+			<if test="walletId != null">
+				wallet_id,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="accountNum != null">
+				account_num,
+			</if>
+			<if test="accountAvailableNum != null">
+				account_available_num,
+			</if>
+			<if test="accountLockNum != null">
+				account_lock_num,
+			</if>
+			<if test="chainBlance != null">
+				chain_blance,
+			</if>
+			<if test="transHashNum != null">
+				trans_hash_num,
+			</if>
+			<if test="note != null">
+				note,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="coinId != null">
+				#{coinId,jdbcType=BIGINT},
+			</if>
+			<if test="walletId != null">
+				#{walletId,jdbcType=BIGINT},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=CHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="accountNum != null">
+				#{accountNum,jdbcType=VARCHAR},
+			</if>
+			<if test="accountAvailableNum != null">
+				#{accountAvailableNum,jdbcType=VARCHAR},
+			</if>
+			<if test="accountLockNum != null">
+				#{accountLockNum,jdbcType=VARCHAR},
+			</if>
+			<if test="chainBlance != null">
+				#{chainBlance,jdbcType=VARCHAR},
+			</if>
+			<if test="transHashNum != null">
+				#{transHashNum,jdbcType=BIGINT},
+			</if>
+			<if test="note != null">
+				#{note,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.minute.service.wallet.entry.SysCoin">
+		update sys_coin
+		<set>
+			<if test="coinId != null">
+				coin_id = #{coinId,jdbcType=BIGINT},
+			</if>
+			<if test="walletId != null">
+				wallet_id = #{walletId,jdbcType=BIGINT},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=CHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="accountNum != null">
+				account_num = #{accountNum,jdbcType=VARCHAR},
+			</if>
+			<if test="accountAvailableNum != null">
+				account_available_num = #{accountAvailableNum,jdbcType=VARCHAR},
+			</if>
+			<if test="accountLockNum != null">
+				account_lock_num = #{accountLockNum,jdbcType=VARCHAR},
+			</if>
+			<if test="chainBlance != null">
+				chain_blance = #{chainBlance,jdbcType=VARCHAR},
+			</if>
+			<if test="transHashNum != null">
+				trans_hash_num = #{transHashNum,jdbcType=BIGINT},
+			</if>
+			<if test="note != null">
+				note = #{note,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.minute.service.wallet.entry.SysCoin">
+		update sys_coin
+		set coin_id = #{coinId,jdbcType=BIGINT},
+		wallet_id = #{walletId,jdbcType=BIGINT},
+		type = #{type,jdbcType=CHAR},
+		address = #{address,jdbcType=VARCHAR},
+		account_num = #{accountNum,jdbcType=VARCHAR},
+		account_available_num = #{accountAvailableNum,jdbcType=VARCHAR},
+		account_lock_num = #{accountLockNum,jdbcType=VARCHAR},
+		chain_blance = #{chainBlance,jdbcType=VARCHAR},
+		trans_hash_num = #{transHashNum,jdbcType=BIGINT},
+		note = #{note,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<select id="sysCoinMange" resultMap="BaseResultMap">
+		select * from sys_coin
+	</select>
+
+	<select id="selectEthColdAddress" resultType="java.lang.String">
+		select address from sys_coin ,sys_wallet where sys_coin.type=1 and
+		sys_coin.wallet_id = sys_wallet.id
+	</select>
+
+	<select id="selectEthHotAddress" resultType="java.lang.String">
+		select address from sys_coin ,sys_wallet where sys_coin.type=2 and
+		sys_coin.wallet_id = sys_wallet.id
+	</select>
+</mapper>
